@@ -1,0 +1,235 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Add enhanced animations and effects */
+:root {
+  --bg-main: #000000;
+  --bg-card: #0d0d0f;
+  --bg-glass: rgba(255,255,255,0.05);
+
+  --neon-1: #00eaff;
+  --neon-2: #8b5cf6;
+  --neon-3: #ff3df9;
+
+  --text-main: #ffffff;
+  --text-sub: #b3b3b3;
+
+  --border-glow: 0 0 12px var(--neon-2);
+  --shadow-neon: 0 0 25px var(--neon-3);
+
+  --radius: 18px;
+  --transition: 0.25s ease;
+
+  --background: var(--bg-main);
+  --foreground: var(--text-main);
+  --card: var(--bg-card);
+  --card-foreground: var(--text-main);
+  --primary: var(--neon-2);
+  --primary-foreground: var(--text-main);
+  --accent: var(--neon-1);
+  --border: var(--neon-2);
+  --radius-lg: 18px;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    background: linear-gradient(135deg, #000000 0%, #0a0a15 100%);
+  }
+
+  /* Scanline effect */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Neon particles background */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, #00eaff, transparent),
+      radial-gradient(2px 2px at 60% 70%, #8b5cf6, transparent),
+      radial-gradient(1px 1px at 50% 50%, #ff3df9, transparent),
+      radial-gradient(1px 1px at 80% 10%, #00eaff, transparent),
+      radial-gradient(2px 2px at 90% 60%, #8b5cf6, transparent);
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+    animation: particleDrift 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.15;
+  }
+
+  @keyframes particleDrift {
+    0%, 100% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+  }
+}
+
+@layer components {
+  .neon-glow {
+    box-shadow: var(--border-glow), inset 0 0 20px rgba(139, 92, 246, 0.1);
+  }
+
+  .neon-pulse {
+    animation: neonPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes neonPulse {
+    0%, 100% {
+      box-shadow: var(--border-glow), inset 0 0 20px rgba(139, 92, 246, 0.1);
+    }
+    50% {
+      box-shadow: var(--border-glow), inset 0 0 30px rgba(139, 92, 246, 0.2);
+    }
+  }
+
+  .glass-effect {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Add floating and glow animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes glow-shift {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(0, 234, 255, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow-shift {
+    animation: glow-shift 3s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out;
+  }
+
+  .animate-slide-in-up {
+    animation: slide-in-up 0.6s ease-out;
+  }
+
+  /* Smooth page transitions */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .perspective {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
