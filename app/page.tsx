@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-12 px-6 text-center text-gray-500 text-sm border-t border-purple-500/20 mt-20">
-        <p>Your cyberpunk gaming hub. Made with LOVE.</p>
+        <p>My gaming hub.</p>
       </footer>
     </main>
   )
